@@ -2,6 +2,7 @@ package com.mysite.sbb.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
