@@ -2,7 +2,9 @@ package com.mysite.sbb.controller;
 
 import com.mysite.sbb.Ut.Ut;
 import com.mysite.sbb.dao.ArticleRepository;
+import com.mysite.sbb.dao.UserRepository;
 import com.mysite.sbb.domain.Article;
+import com.mysite.sbb.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,8 @@ import java.util.List;
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping("/test")
     @ResponseBody
@@ -94,6 +98,8 @@ public class ArticleController {
         article.setUpdateDate(LocalDateTime.now());
         article.setTitle(title);
         article.setBody(body);
+        User user = userRepository.findById(1L).get();
+        article.setUser(user);
 
         articleRepository.save(article);
 
