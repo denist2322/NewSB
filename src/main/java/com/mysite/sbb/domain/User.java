@@ -1,5 +1,6 @@
 package com.mysite.sbb.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ public class User {
     private LocalDateTime regDate;
     private LocalDateTime updateDate;
     private String email;
-    private String password;
     private String name;
+    @JsonIgnore
+    private String password;
 }
