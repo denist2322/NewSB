@@ -1,11 +1,11 @@
 package com.mysite.sbb.controller;
 
+import com.mysite.sbb.Ut.Ut;
 import com.mysite.sbb.dao.ArticleRepository;
 import com.mysite.sbb.domain.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
@@ -77,4 +77,27 @@ public class ArticleController {
 
         return String.format("%d번 삭제가 완료되었습니다.", id);
     }
+    @RequestMapping("/doWrite")
+    @ResponseBody
+    public String doWrite(String title, String body){
+        if(Ut.empty(title)){
+            return "제목을 입력해주세요";
+        }
+        if(Ut.empty(body)){
+            return "내용을 입력해주세요";
+        }
+
+        body = body.trim();
+
+        Article article = new Article();
+        article.setRegDate(LocalDateTime.now());
+        article.setUpdateDate(LocalDateTime.now());
+        article.setTitle(title);
+        article.setBody(body);
+
+        articleRepository.save(article);
+
+        return "게시물이 생성되었습니다.";
+    }
+
 }
