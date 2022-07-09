@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/usr/article")
@@ -91,6 +92,16 @@ public class ArticleController {
         articleRepository.delete(article);
 
         return String.format("%d번 삭제가 완료되었습니다.", id);
+    }
+
+    @RequestMapping("/detail")
+    public String showDetail(Long id, Model model) {
+       Optional<Article> opArticle = articleRepository.findById(id);
+       Article article = opArticle.get();
+
+       model.addAttribute("article", article);
+
+       return "usr/article/detail";
     }
 
     @RequestMapping("/write")
