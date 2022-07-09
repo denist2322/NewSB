@@ -99,14 +99,24 @@ public class ArticleController {
     @ResponseBody
     public String doDelete(Long id) {
         if (!articleRepository.existsById(id)) {
-            return "%d번 게시물은 이미 삭제되었거나 존재하지 않습니다.".formatted(id);
+            return """
+                <script>
+                alert("%d번 게시물은 이미 삭제되었습니다.");
+                history.back();
+                </script>
+                """.formatted(id);
         }
 
         Article article = articleRepository.findById(id).get();
 
         articleRepository.delete(article);
 
-        return String.format("%d번 삭제가 완료되었습니다.", id);
+        return """
+                <script>
+                alert("%d번 게시물이 삭제되었습니다.");
+                location.replace('list')
+                </script>
+                """.formatted(id);
     }
 
     @RequestMapping("/detail")
