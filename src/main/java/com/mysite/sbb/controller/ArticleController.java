@@ -120,7 +120,12 @@ public class ArticleController {
 
         articleRepository.save(article);
 
-        return "게시물이 생성되었습니다.";
+        return """
+                <script>
+                alert("%d번 게시물이 생성되었습니다.");
+                location.replace('list')
+                </script>
+                """.formatted(article.getId());
     }
 
 }
