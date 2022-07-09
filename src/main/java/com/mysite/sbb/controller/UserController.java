@@ -94,7 +94,7 @@ public class UserController {
         return "%s님 환영합니다.".formatted(user.get().getName());
     }
 
-
+    //쿠키는 해킹에 약해요....
     @RequestMapping("/me")
     @ResponseBody
     public User showMe(HttpServletRequest req) {
