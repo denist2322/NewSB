@@ -31,8 +31,9 @@ public class ArticleController {
 
     @RequestMapping("/list")
     public String showList(Model model) {
-        model.addAttribute("age",22);
-        model.addAttribute("name","김정남");
+        List<Article> articles = articleRepository.findAll();
+
+        model.addAttribute("articles",articles);
 
         return "usr/article/list";
     }

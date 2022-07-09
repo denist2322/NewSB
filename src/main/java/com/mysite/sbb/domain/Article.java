@@ -2,6 +2,7 @@ package com.mysite.sbb.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@ToString
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
