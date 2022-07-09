@@ -92,6 +92,12 @@ public class ArticleController {
 
         return String.format("%d번 삭제가 완료되었습니다.", id);
     }
+
+    @RequestMapping("/write")
+    public String doWrite(){
+        return "usr/article/write";
+    }
+
     @RequestMapping("/doWrite")
     @ResponseBody
     public String doWrite(String title, String body){
