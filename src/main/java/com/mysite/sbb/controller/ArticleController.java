@@ -66,20 +66,47 @@ public class ArticleController {
 
     @RequestMapping("/doModify")
     @ResponseBody
-    public String doModify(Long id, String title, String body) {
-        if (id == null) {
-            return "id를 입력하세요.";
+    public String doModify(Long id, String title, String body, HttpSession httpSession) {
+        boolean islogined = false;
+        long loginedUserId = 0;
+
+        if(httpSession.getAttribute("loginedUserId")!= null){
+            islogined = true;
+            loginedUserId = (long)httpSession.getAttribute("loginedUserId");
         }
 
-        if (title == null) {
-            return "title을 입력하세요.";
-        }
-
-        if (body == null) {
-            return "body를 입력하세요.";
+        if(!islogined){
+            return """
+                <script>
+                alert("로그인 해주세요.");
+                history.back();
+                </script>
+                """;
         }
 
         Article article = articleRepository.findById(id).get();
+
+        if(article.getUser().getId() != loginedUserId){
+            return """
+                <script>
+                alert("권한이 없습니다.");
+                history.back();
+                </script>
+                """;
+        }
+
+        if (Ut.empty(id)) {
+            return "id를 입력하세요.";
+        }
+
+        if (Ut.empty(title)) {
+            return "title을 입력하세요.";
+        }
+
+        if (Ut.empty(body)) {
+            return "body를 입력하세요.";
+        }
+
 
         article.setUpdateDate(LocalDateTime.now());
 
