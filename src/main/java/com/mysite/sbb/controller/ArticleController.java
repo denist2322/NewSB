@@ -98,7 +98,25 @@ public class ArticleController {
 
     @RequestMapping("/doDelete")
     @ResponseBody
-    public String doDelete(Long id) {
+    public String doDelete(Long id, HttpSession httpSession) {
+        boolean islogined = false;
+        long loginedUserId = 0;
+
+        if(httpSession.getAttribute("loginedUserId")!= null){
+            islogined = true;
+            loginedUserId = (long)httpSession.getAttribute("loginedUserId");
+        }
+
+        if(!islogined){
+            return """
+                <script>
+                alert("로그인 해주세요.");
+                history.back();
+                </script>
+                """;
+        }
+
+
         if (!articleRepository.existsById(id)) {
             return """
                 <script>
@@ -109,6 +127,16 @@ public class ArticleController {
         }
 
         Article article = articleRepository.findById(id).get();
+
+        if(article.getUser().getId() != loginedUserId){
+            return """
+                <script>
+                alert("권한이 없습니다.");
+                history.back();
+                </script>
+                """;
+        }
+
 
         articleRepository.delete(article);
 
