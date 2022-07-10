@@ -8,22 +8,22 @@
 <main layout:fragment="main">
 
 <div>
-    <a th:href="@{detail(id=${article.id})}" style="color:red;">글 본문</a>
+    <a th:href="@{detail(id=${article.id})}">글 본문</a>
 </div>
 
 <h1>게시물 수정</h1>
-<form action="doModify" method="POST">
+<form action="doModify" method="PATCH">
     <input type="hidden" name="id" th:value="${article.id}">
     <div>
         <div>제목</div>
         <div>
-            <input type="text" name="title" placeholder="제목을 입력해주세요.">
+            <input type="text" name="title" placeholder="제목을 입력해주세요." th:value="${article.title}" >
         </div>
     </div>
     <div>
         <div>내용</div>
         <div>
-            <textarea name="body" placeholder="내용을 입력해주세요."></textarea>
+            <textarea name="body" placeholder="내용을 입력해주세요." th:text="${article.body}" ></textarea>
         </div>
     </div>
     <div>

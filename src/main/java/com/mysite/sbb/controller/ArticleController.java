@@ -35,7 +35,7 @@ public class ArticleController {
     public String showList(Model model) {
         List<Article> articles = articleRepository.findAll();
 
-        model.addAttribute("articles",articles);
+        model.addAttribute("articles", articles);
 
         return "usr/article/list";
     }
@@ -55,16 +55,16 @@ public class ArticleController {
     }
 
     @RequestMapping("/modify")
-    public String showModify(Long id, Model model,HttpSession httpSession) {
+    public String showModify(Long id, Model model, HttpSession httpSession) {
         boolean islogined = false;
         long loginedUserId = 0;
 
-        if(httpSession.getAttribute("loginedUserId")!= null){
+        if (httpSession.getAttribute("loginedUserId") != null) {
             islogined = true;
-            loginedUserId = (long)httpSession.getAttribute("loginedUserId");
+            loginedUserId = (long) httpSession.getAttribute("loginedUserId");
         }
 
-        if(!islogined){
+        if (!islogined) {
             model.addAttribute("msg", "로그인 후 이용해주세요.");
             model.addAttribute("historyBack", true);
             return "common/js";
@@ -73,9 +73,9 @@ public class ArticleController {
         Optional<Article> opArticle = articleRepository.findById(id);
         Article article = opArticle.get();
 
-        if(article.getUser().getId() != loginedUserId){
-            model.addAttribute("msg","권한이 없습니다.");
-            model.addAttribute("historyBack",true);
+        if (article.getUser().getId() != loginedUserId) {
+            model.addAttribute("msg", "권한이 없습니다.");
+            model.addAttribute("historyBack", true);
             return "common/js";
         }
 
@@ -90,35 +90,31 @@ public class ArticleController {
         boolean islogined = false;
         long loginedUserId = 0;
 
-        if(httpSession.getAttribute("loginedUserId")!= null){
+        if (httpSession.getAttribute("loginedUserId") != null) {
             islogined = true;
-            loginedUserId = (long)httpSession.getAttribute("loginedUserId");
+            loginedUserId = (long) httpSession.getAttribute("loginedUserId");
         }
 
-        if(!islogined){
+        if (!islogined) {
             return """
-                <script>
-                alert("로그인 해주세요.");
-                history.back();
-                </script>
-                """;
+                    <script>
+                    alert("로그인 해주세요.");
+                    history.back();
+                    </script>
+                    """;
         }
 
         Article article = articleRepository.findById(id).get();
 
-        if(article.getUser().getId() != loginedUserId){
+        if (article.getUser().getId() != loginedUserId) {
             return """
-                <script>
-                alert("권한이 없습니다.");
-                history.back();
-                </script>
-                """;
+                    <script>
+                    alert("권한이 없습니다.");
+                    history.back();
+                    </script>
+                    """;
         }
-
-        if (Ut.empty(id)) {
-            return "id를 입력하세요.";
-        }
-
+        
         if (Ut.empty(title)) {
             return "title을 입력하세요.";
         }
@@ -140,7 +136,7 @@ public class ArticleController {
                 alert("%d번 게시물을 수정했습니다.");
                 location.replace('detail?id=%d')
                 </script>
-                """.formatted(article.getId(),article.getId());
+                """.formatted(article.getId(), article.getId());
     }
 
     @RequestMapping("/doDelete")
@@ -149,39 +145,39 @@ public class ArticleController {
         boolean islogined = false;
         long loginedUserId = 0;
 
-        if(httpSession.getAttribute("loginedUserId")!= null){
+        if (httpSession.getAttribute("loginedUserId") != null) {
             islogined = true;
-            loginedUserId = (long)httpSession.getAttribute("loginedUserId");
+            loginedUserId = (long) httpSession.getAttribute("loginedUserId");
         }
 
-        if(!islogined){
+        if (!islogined) {
             return """
-                <script>
-                alert("로그인 해주세요.");
-                history.back();
-                </script>
-                """;
+                    <script>
+                    alert("로그인 해주세요.");
+                    history.back();
+                    </script>
+                    """;
         }
 
 
         if (!articleRepository.existsById(id)) {
             return """
-                <script>
-                alert("%d번 게시물은 이미 삭제되었습니다.");
-                history.back();
-                </script>
-                """.formatted(id);
+                    <script>
+                    alert("%d번 게시물은 이미 삭제되었습니다.");
+                    history.back();
+                    </script>
+                    """.formatted(id);
         }
 
         Article article = articleRepository.findById(id).get();
 
-        if(article.getUser().getId() != loginedUserId){
+        if (article.getUser().getId() != loginedUserId) {
             return """
-                <script>
-                alert("권한이 없습니다.");
-                history.back();
-                </script>
-                """;
+                    <script>
+                    alert("권한이 없습니다.");
+                    history.back();
+                    </script>
+                    """;
         }
 
 
@@ -197,30 +193,30 @@ public class ArticleController {
 
     @RequestMapping("/detail")
     public String showDetail(Long id, Model model) {
-       Optional<Article> opArticle = articleRepository.findById(id);
-       Article article = opArticle.get();
+        Optional<Article> opArticle = articleRepository.findById(id);
+        Article article = opArticle.get();
 
-       model.addAttribute("article", article);
+        model.addAttribute("article", article);
 
-       return "usr/article/detail";
+        return "usr/article/detail";
     }
 
     @RequestMapping("/write")
 
-    public String doWrite(HttpSession httpSession, Model model){
+    public String doWrite(HttpSession httpSession, Model model) {
         boolean islogined = false;
         long loginedUserId = 0;
 
-        if(httpSession.getAttribute("loginedUserId")!= null){
+        if (httpSession.getAttribute("loginedUserId") != null) {
             islogined = true;
-            loginedUserId = (long)httpSession.getAttribute("loginedUserId");
+            loginedUserId = (long) httpSession.getAttribute("loginedUserId");
         }
 
         System.out.println("islogined: " + islogined);
 
-        if(!islogined){
-            model.addAttribute("msg","로그인 후 이용해주세요.");
-            model.addAttribute("historyBack",true);
+        if (!islogined) {
+            model.addAttribute("msg", "로그인 후 이용해주세요.");
+            model.addAttribute("historyBack", true);
             return "common/js";
         }
         return "usr/article/write";
@@ -228,28 +224,28 @@ public class ArticleController {
 
     @RequestMapping("/doWrite")
     @ResponseBody
-    public String doWrite(String title, String body, HttpSession httpSession){
+    public String doWrite(String title, String body, HttpSession httpSession) {
         boolean islogined = false;
         long loginedUserId = 0;
 
-        if(httpSession.getAttribute("loginedUserId")!= null){
+        if (httpSession.getAttribute("loginedUserId") != null) {
             islogined = true;
-            loginedUserId = (long)httpSession.getAttribute("loginedUserId");
+            loginedUserId = (long) httpSession.getAttribute("loginedUserId");
         }
 
-        if(!islogined){
+        if (!islogined) {
             return """
-                <script>
-                alert("로그인 해주세요.");
-                history.back();
-                </script>
-                """;
+                    <script>
+                    alert("로그인 해주세요.");
+                    history.back();
+                    </script>
+                    """;
         }
 
-        if(Ut.empty(title)){
+        if (Ut.empty(title)) {
             return "제목을 입력해주세요";
         }
-        if(Ut.empty(body)){
+        if (Ut.empty(body)) {
             return "내용을 입력해주세요";
         }
 
