@@ -136,7 +136,7 @@ public class UserController {
         return """
                     <script>
                     alert("%s님 환영합니다.");
-                    location.replace('/usr/article/list')
+                    location.replace('/')
                     </script>
                     """.formatted(user.get().getName());
     }
@@ -175,12 +175,22 @@ public class UserController {
         }
 
         if(isLogined == false){
-            return "이미 로그아웃 되었습니다.";
+            return """
+                    <script>
+                    alert("이미 로그아웃 되었습니다.");
+                    history.back();
+                    </script>
+                    """;
         }
 
         session.removeAttribute("loginedUserId");
 
-       return "로그아웃 되었습니다.";
+        return """
+                    <script>
+                    alert("로그아웃 되었습니다.");
+                    location.replace('/');
+                    </script>
+                    """;
     }
 
 
