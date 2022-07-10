@@ -223,5 +223,94 @@ public class UserController {
                     """;
     }
 
+    @RequestMapping("/modify")
+    public String showModify(Long id, Model model, HttpSession session) {
+        boolean islogined = false;
+        long loginedUserId = 0;
+
+        if (session.getAttribute("loginedUserId") != null) {
+            islogined = true;
+            loginedUserId = (long) session.getAttribute("loginedUserId");
+        }
+
+        if (!islogined) {
+            model.addAttribute("msg", "로그인 후 이용해주세요.");
+            model.addAttribute("historyBack", true);
+            return "common/js";
+        }
+
+        Optional<User> opUser = userRepository.findById(id);
+        User user = opUser.get();
+
+        if (user.getId() != loginedUserId) {
+            model.addAttribute("msg", "권한이 없습니다.");
+            model.addAttribute("historyBack", true);
+            return "common/js";
+        }
+
+        model.addAttribute("user", user);
+
+        return "usr/user/modify";
+    }
+
+    @RequestMapping("/doModify")
+    @ResponseBody
+    public String doModify(Long id, String email, String password, String name ,HttpSession session) {
+        boolean islogined = false;
+        long loginedUserId = 0;
+
+        if (session.getAttribute("loginedUserId") != null) {
+            islogined = true;
+            loginedUserId = (long) session.getAttribute("loginedUserId");
+        }
+
+        if (!islogined) {
+            return """
+                    <script>
+                    alert("로그인 해주세요.");
+                    history.back();
+                    </script>
+                    """;
+        }
+
+        User user = userRepository.findById(id).get();
+
+        if (user.getId() != loginedUserId) {
+            return """
+                    <script>
+                    alert("권한이 없습니다.");
+                    history.back();
+                    </script>
+                    """;
+        }
+
+        if (Ut.empty(email)) {
+            return "email 입력하세요.";
+        }
+
+        if (Ut.empty(password)) {
+            return "password을 입력하세요.";
+        }
+
+        if (Ut.empty(password)) {
+            return "name을 입력하세요.";
+        }
+
+
+        user.setUpdateDate(LocalDateTime.now());
+
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setName(name);
+
+        userRepository.save(user);
+
+        return """
+                <script>
+                alert("회원정보 수정이 완료되었습니다.");
+                location.replace('/')
+                </script>
+                """;
+    }
 
 }
