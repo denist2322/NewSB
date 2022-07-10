@@ -285,15 +285,41 @@ public class UserController {
         }
 
         if (Ut.empty(email)) {
-            return "email 입력하세요.";
+            return """
+                    <script>
+                    alert("email 입력하세요.");
+                    history.back();
+                    </script>
+                    """;
+        }
+
+        boolean existsByEmail = userRepository.existsByEmail(email);
+
+        if (existsByEmail && !user.getEmail().equals(email)) {
+            return """
+                    <script>
+                    alert("입력하신 이메일(%s)은 이미 사용중입니다.");
+                    history.back();
+                    </script>
+                    """.formatted(email);
         }
 
         if (Ut.empty(password)) {
-            return "password을 입력하세요.";
+            return """
+                    <script>
+                    alert("password을 입력하세요.");
+                    history.back();
+                    </script>
+                    """;
         }
 
-        if (Ut.empty(password)) {
-            return "name을 입력하세요.";
+        if (Ut.empty(name)) {
+            return """
+                    <script>
+                    alert("name을 입력하세요.");
+                    history.back();
+                    </script>
+                    """;
         }
 
 
