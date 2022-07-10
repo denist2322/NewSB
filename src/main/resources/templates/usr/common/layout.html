@@ -10,6 +10,8 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <link rel="stylesheet" href="/resource/common.css">
+
     <style>
         /* 다크 모드 */
         /*
@@ -26,13 +28,21 @@
 </head>
 
 <body>
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.14.0/dist/full.css" rel="stylesheet" type="text/css" />
 
-<div>
-    <ul class="flex">
-        <li><a href="/usr/article/write" class="block p-4 hover:text-red-500">글 쓰기</a></li>
-        <li><a href="/usr/article/list" class="block p-4 hover:text-red-500">글 리스트</a></li>
-        <li><a href="/usr/user/login" class="block p-4 hover:text-red-500">로그인</a></li>
-        <li><a href="/usr/user/join" class="block p-4 hover:text-red-500">회원가입</a></li>
+<div class="container mx-auto">
+    <div class = "text-[2rem] font-bold py-[10px]">
+        <a href="/">하이!</a>
+    </div>
+</div>
+
+
+<div class="container mx-auto">
+    <ul class="flex m1 [-10px]">
+        <li><a href="/usr/article/write" class="block p-[-10px] hover:text-red-500">글 쓰기</a></li>
+        <li><a href="/usr/article/list" class="block p-[-10px] hover:text-red-500">글 리스트</a></li>
+        <li><a href="/usr/user/login" class="block p-[-10px] hover:text-red-500">로그인</a></li>
+        <li><a href="/usr/user/join" class="block p-[-10px] hover:text-red-500">회원가입</a></li>
     </ul>
 </div>
 
