@@ -62,13 +62,15 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-    public String showLogin(HttpSession httpSession, Model model) {
+    public String showLogin(HttpSession session, Model model) {
         boolean islogined = false;
         long loginedUserId = 0;
 
-        if (httpSession.getAttribute("loginedUserId") != null) {
+        if (session.getAttribute("loginedUserId") != null) {
             islogined = true;
-            loginedUserId = (long) httpSession.getAttribute("loginedUserId");
+            loginedUserId = (long)
+
+                    session.getAttribute("loginedUserId");
         }
 
         System.out.println("islogined: " + islogined);
@@ -134,7 +136,7 @@ public class UserController {
         return """
                     <script>
                     alert("%s님 환영합니다.");
-                    history.back();
+                    location.replace('/usr/article/list')
                     </script>
                     """.formatted(user.get().getName());
     }

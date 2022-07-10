@@ -55,13 +55,13 @@ public class ArticleController {
     }
 
     @RequestMapping("/modify")
-    public String showModify(Long id, Model model, HttpSession httpSession) {
+    public String showModify(Long id, Model model, HttpSession session) {
         boolean islogined = false;
         long loginedUserId = 0;
 
-        if (httpSession.getAttribute("loginedUserId") != null) {
+        if (session.getAttribute("loginedUserId") != null) {
             islogined = true;
-            loginedUserId = (long) httpSession.getAttribute("loginedUserId");
+            loginedUserId = (long) session.getAttribute("loginedUserId");
         }
 
         if (!islogined) {
@@ -86,13 +86,13 @@ public class ArticleController {
 
     @RequestMapping("/doModify")
     @ResponseBody
-    public String doModify(Long id, String title, String body, HttpSession httpSession) {
+    public String doModify(Long id, String title, String body, HttpSession session) {
         boolean islogined = false;
         long loginedUserId = 0;
 
-        if (httpSession.getAttribute("loginedUserId") != null) {
+        if (session.getAttribute("loginedUserId") != null) {
             islogined = true;
-            loginedUserId = (long) httpSession.getAttribute("loginedUserId");
+            loginedUserId = (long) session.getAttribute("loginedUserId");
         }
 
         if (!islogined) {
@@ -141,13 +141,13 @@ public class ArticleController {
 
     @RequestMapping("/doDelete")
     @ResponseBody
-    public String doDelete(Long id, HttpSession httpSession) {
+    public String doDelete(Long id, HttpSession session) {
         boolean islogined = false;
         long loginedUserId = 0;
 
-        if (httpSession.getAttribute("loginedUserId") != null) {
+        if (session.getAttribute("loginedUserId") != null) {
             islogined = true;
-            loginedUserId = (long) httpSession.getAttribute("loginedUserId");
+            loginedUserId = (long) session.getAttribute("loginedUserId");
         }
 
         if (!islogined) {
@@ -202,13 +202,13 @@ public class ArticleController {
     }
 
     @RequestMapping("/write")
-    public String showWrite(HttpSession httpSession, Model model) {
+    public String showWrite(HttpSession session, Model model) {
         boolean islogined = false;
         long loginedUserId = 0;
 
-        if (httpSession.getAttribute("loginedUserId") != null) {
+        if (session.getAttribute("loginedUserId") != null) {
             islogined = true;
-            loginedUserId = (long) httpSession.getAttribute("loginedUserId");
+            loginedUserId = (long) session.getAttribute("loginedUserId");
         }
 
         System.out.println("islogined: " + islogined);
@@ -223,13 +223,13 @@ public class ArticleController {
 
     @RequestMapping("/doWrite")
     @ResponseBody
-    public String doWrite(String title, String body, HttpSession httpSession) {
+    public String doWrite(String title, String body, HttpSession session) {
         boolean islogined = false;
         long loginedUserId = 0;
 
-        if (httpSession.getAttribute("loginedUserId") != null) {
+        if (session.getAttribute("loginedUserId") != null) {
             islogined = true;
-            loginedUserId = (long) httpSession.getAttribute("loginedUserId");
+            loginedUserId = (long) session.getAttribute("loginedUserId");
         }
 
         if (!islogined) {
