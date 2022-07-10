@@ -3,17 +3,18 @@
       layout:decorate="~{usr/common/layout}">
 <head>
     <title>게시물 본문</title>
+
 </head>
 
 <main layout:fragment="main">
-    <h1>게시물 본문</h1>
-
     <div>
         <a th:if="${article.user.id == session.loginedUserId}" th:href="@{modify(id=${article.id})}">글 수정</a>
         <a th:if="${article.user.id == session.loginedUserId}"
            onclick="if(confirm('정말로 삭제하시겠습니까?') == false) return false;" th:href="@{doDelete(id=${article.id})}">글
             삭제</a>
     </div>
+
+    <h1>게시물 본문</h1>
 
     <div>
         <div>
