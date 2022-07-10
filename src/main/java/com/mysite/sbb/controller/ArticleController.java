@@ -202,7 +202,7 @@ public class ArticleController {
     }
 
     @RequestMapping("/write")
-    public String doWrite(HttpSession httpSession, Model model) {
+    public String showWrite(HttpSession httpSession, Model model) {
         boolean islogined = false;
         long loginedUserId = 0;
 
