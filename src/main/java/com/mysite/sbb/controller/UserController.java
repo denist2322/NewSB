@@ -21,6 +21,11 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @RequestMapping("/join")
+    public String showJoin(){
+        return "usr/user/join";
+    }
+
     @RequestMapping("/doJoin")
     @ResponseBody
     public String doJoin(String name, String email, String password) {
@@ -28,25 +33,45 @@ public class UserController {
         name = name.trim();
 
         if (Ut.empty(name)) {
-            return "이름을 입력해주세요";
+            return """
+                    <script>
+                    alert("이름을 입력해주세요.");
+                    history.back();
+                    </script>
+                    """;
         }
 
         email = email.trim();
 
         if (Ut.empty(email)) {
-            return "이메일을 입력해주세요";
+            return """
+                    <script>
+                    alert("이메일을 입력해주세요.");
+                    history.back();
+                    </script>
+                    """;
         }
 
         boolean existsByEmail = userRepository.existsByEmail(email);
 
         if (existsByEmail) {
-            return "입력하신 이메일(%s)은 이미 사용중입니다.".formatted(email);
+            return """
+                    <script>
+                    alert("입력하신 이메일(%s)은 이미 사용중입니다.");
+                    history.back();
+                    </script>
+                    """.formatted(email);
         }
 
         password = password.trim();
 
         if (Ut.empty(password)) {
-            return "비밀번호를 입력해주세요";
+            return """
+                    <script>
+                    alert("비밀번호를 입력해주세요.");
+                    history.back();
+                    </script>
+                    """;
         }
 
         User user = new User();
@@ -58,7 +83,12 @@ public class UserController {
 
         userRepository.save(user);
 
-        return "%d번 회원이 생성되었습니다.".formatted(user.getId());
+        return """
+                    <script>
+                    alert("%s님 회원가입이 완료되었습니다.");
+                    location.replace("/");
+                    </script>
+                    """.formatted(user.getName());
     }
 
     @RequestMapping("/login")

@@ -2,14 +2,14 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{usr/common/layout}">
 <head>
-    <title>로그인</title>
+    <title>회원가입</title>
 </head>
 
 <main layout:fragment="main" class="mt-[20px]">
 
     <h1 class="container mx-auto font-bold text-[1.3rem] px-[10px]">로그인</h1>
 
-    <form action="doLogin" method="POST" class="container mx-auto px-[10px]">
+    <form action="doJoin" method="POST" class="container mx-auto px-[10px]">
         <div>
             <div class="my-2">이메일</div>
             <div>
@@ -23,9 +23,15 @@
             </div>
         </div>
         <div>
-            <div class="mt-[20px] my-2">로그인</div>
+            <div class="my-2">이름</div>
             <div>
-                <input type="submit" value="로그인" class="btn btn-primary">
+                <input type="name" name="name" placeholder="이름을 입력해주세요." class="input input-bordered w-full max-w-xs" maxlength="30"/>
+            </div>
+        </div>
+        <div>
+            <div class="mt-[20px] my-2">가입</div>
+            <div>
+                <input type="submit" value="가입" class="btn btn-primary">
             </div>
         </div>
     </form>
